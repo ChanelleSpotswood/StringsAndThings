@@ -15,7 +15,20 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+        String[] words = input.split(" ");
+        Integer counter = 0;
+
+        for (String word : words) {
+            String lowercaseWord = word.toLowerCase();
+
+            char lastChar = lowercaseWord.charAt(word.length() - 1);
+            if (lastChar == 'z' || lastChar == 'y') {
+                counter++;
+            }
+
+        }
+
+        return counter;
     }
 
     /**
@@ -28,8 +41,10 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+        return base.replaceAll(remove, "");
     }
+
+
 
     /**
      * Given a string, return true if the number of appearances of "is" anywhere in the string is equal
@@ -40,18 +55,51 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        int countForIs = countOcurrence(input, "is");
+        int countForNot = countOcurrence(input, "not");
+        return countForIs == countForNot;
+    }
+
+    private int countOcurrence(String input, String stringToCount) {
+        int count = 0;
+        int index = 0;
+
+
+        while (true) {
+            int result = input.indexOf((String) stringToCount, index);
+            if (result == -1) {
+                break;
+            } else {
+                index = result + 1;
+                count++;
+            }
+
+        }
+
+        return count;
     }
 
     /**
      * We'll say that a lowercase 'g' in a string is "happy" if there is another 'g' immediately to its left or right.
      * Return true if all the g's in the given string are happy.
-     * example : gHappy("xxggxx") // Should return  true
+     * example : gHappy("xggxx") // Should return  true
      *           gHappy("xxgxx") // Should return  false
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == 'g') {
+                // Check if the 'g' is happy
+                if (i > 0 && input.charAt(i - 1) == 'g') {
+                    continue; // 'g' is happy, move to the next character
+                } else if (i < input.length() - 1 && input.charAt(i + 1) == 'g') {
+                    continue; // 'g' is happy, move to the next character
+                } else {
+                    return false; // 'g' is not happy, return false
+                }
+            }
+        }
+        return true; // All 'g' characters are happy
     }
 
 
@@ -63,6 +111,12 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        int counter = 0;
+        int triple = input.length()-2;
+        for (int i = 0; i < triple; i++){
+            if(input.charAt(i) == input.charAt(i+1) && input.charAt(i) == input.charAt(i+2)) counter++;
+        }
+        return counter;
+        // return the number if char appears 3 times in a row
     }
 }
